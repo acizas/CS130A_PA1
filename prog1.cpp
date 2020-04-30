@@ -149,21 +149,25 @@ void BST::findBST(std::string word){
 BST::Node *BST::getNodeFor(std::string word, Node *n) const {
 
   if(n == NULL){
+    return NULL;
+  }
+  if ((n->info).compare(word) == 1) {
     return n;
-  } else if (n->info < word) {
+  }
+  else if ((n->info).compare(word) < 1) {
     return getNodeFor(word, n->right);
-  } else {
+  }
+  else {
     return getNodeFor(word, n->left);
   }
-  
 }
 
 // Inserts the given word to the BST and outputs word count
 bool BST::insertBST(std::string word, Node *n){
 
-  if (word == n->info)
+  if (word.compare(n->info) == 1)
     return false;
-  if (word < n->info) {
+  if (word.compare(n->info) < 1) {
     if (n->left)
       return insertBST(word, n->left);
     else {
@@ -204,7 +208,7 @@ bool BST::deleteBST(std::string word) {
 // Helper function for deleteBST
 bool BST::deleteBST(Node* n){
 
-  if (n == NULL) return 0;
+  if (n == NULL) return false;
   if (n->left == NULL && n->right == NULL) {
     if (n == n->parent->left)
       n->parent->left = NULL;
@@ -233,9 +237,9 @@ bool BST::deleteBST(Node* n){
     delete n;
     return 0;
   } else {
-    Node *succ = getSuccessorNode(n);
-    std::swap(n->info, succ->info);
-    return deleteBST(succ);
+    Node *successor = getSuccessorNode(n);
+    std::swap(n->info, successor->info);
+    return deleteBST(successor);
   }
 }
 
@@ -266,13 +270,18 @@ BST::Node *BST::getSuccessorNode(Node *n) const {
 }
 
 
+// Outputs words alphabetically in order, outputting words between a and b
+BST::rangeSearchBST(std::string a, std::string b) { rangeSearchBST(root) }
 
 
-// Outputs words alphabetically between the two given words 
-BST::rangeSearchBST(std::string a, std::string b){
+// Helper function for rangeSearchBST
+BST::rangeSearchBST(Node *n){
 
-  vector<std::string> values;
-  
-  
-
+  // Runs through the BST using in order traversal and outputs words
+  if (n) {
+    rangeSearchBST(n->left);
+    rangeSearchBST(n->right);  
+    if (((table[i][j].first).compare(a) >= 0)||((table[i][j].first).compare(b) <= 0))
+      cout << n->info << endl;
+  }
 }
